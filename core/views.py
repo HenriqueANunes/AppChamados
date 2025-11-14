@@ -33,7 +33,7 @@ class LoginView(View):
 
 class UserCadastroView(View):
     def get(self, request):
-        return render(request, "cadastro.html")
+        return render(request, "user_cadastro.html")
 
     def post(self, request):
         email = request.POST.get("email")
@@ -45,7 +45,7 @@ class UserCadastroView(View):
             messages.success(request, descricao)
             return redirect("login")
 
-        return render(request, "cadastro.html", {"error": descricao})
+        return render(request, "user_cadastro.html", {"error": descricao})
 
 class HomeView(View):
     def get(self, request):
