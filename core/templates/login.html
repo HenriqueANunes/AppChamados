@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .login-container button {
+            background: #4a6bd8;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .login-container button:hover {
+            background: #3d5cc0;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-button {
+            background: #2e9a48;
+            margin-top: 10px;
+        }
+
+        .register-button:hover {
+            background: #267f3c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h1>Entrar</h1>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            <input type="text" name="email" placeholder="Email" required>
+        </label>
+        <label>
+            <input type="password" name="password" placeholder="Senha" required>
+        </label>
+        <button type="submit">Entrar</button>
+    </form>
+
+    <form action="{% url 'cadastro' %}" method="get">
+        <button class="register-button" type="submit">Cadastrar novo usuário</button>
+    </form>
+
+</div>
+
+</body>
+</html>
