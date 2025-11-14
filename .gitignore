@@ -1,0 +1,46 @@
+# Arquivos de Sistema e de Editor
+###################################
+.DS_Store
+.venv
+/venv
+*.pyc
+*.swp
+*~
+__pycache__
+
+# Arquivos de Ambientes Virtuais
+###################################
+/env
+/venv
+
+# Dependências
+###################################
+/pip-selfcheck.json
+
+# Logs
+###################################
+*.log
+
+# Arquivos de Banco de Dados
+###################################
+# SQLite database
+*.sqlite3
+/db.sqlite3
+
+# Mídia e Arquivos Estáticos Gerados
+###################################
+/static_root/
+/media/
+
+# Chaves Secretas e Configurações de Ambiente
+###################################
+.env
+settings_local.py
+config.yaml
+config.json
+*.key
+*.pem
+
+# Arquivos Específicos do PyCharm
+###################################
+.idea/
