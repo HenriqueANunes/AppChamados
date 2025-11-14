@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 
 import services.user
+import services.chamados
 
 # Create your views here.
 class LoginView(View):
@@ -47,8 +48,29 @@ class UserCadastroView(View):
 
         return render(request, "user_cadastro.html", {"error": descricao})
 
-class HomeView(View):
+class ChamadoHomeView(View):
+
     def get(self, request):
-        return render(request, "home.html")
-    def post(self, request):
-        pass
+
+        status, lista_chamados, descricao = services.chamados.Chamado().get_chamados()
+
+        return render(request, "home.html", {'lista_chamados': lista_chamados})
+
+class ChamadoCadastroView(View):
+    def post(self, request, chamado_id):
+
+        status, chamado_id, erro = services.chamados.Chamado(request.user).salvar_chamado(
+            chamado_id=chamado_id,
+            titulo=request.POST.get("titulo"),
+            descricao = request.POST.get("descricao"),
+            prioridade = request.POST.get("prioridade"),
+            setor = request.POST.get("setor"),
+            status = request.POST.get("status"),
+        )
+
+        if status:
+            return redirect("home")
+
+        messages.error(request, erro)
+        return redirect("home")
+
