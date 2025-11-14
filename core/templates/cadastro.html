@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Usuário</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .register-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 320px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .register-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .register-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .register-container input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .register-container button {
+            background: #2e9a48;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .register-container button:hover {
+            background: #267f3c;
+        }
+
+        .back-button {
+            background: #4a6bd8;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background: #3d5cc0;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="register-container">
+    <h1>Cadastrar</h1>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if success %}
+        <div class="success">{{ success }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            <input type="email" name="email" placeholder="Email" required>
+        </label>
+        <label>
+            <input type="password" name="password" placeholder="Senha" required>
+        </label>
+        <button type="submit">Criar conta</button>
+    </form>
+
+    <form action="{% url 'login' %}" method="get">
+        <button class="back-button" type="submit">Voltar para login</button>
+    </form>
+</div>
+
+</body>
+</html>
