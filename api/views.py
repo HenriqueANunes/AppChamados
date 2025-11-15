@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 
 import services.user
+import services.chamados
 
 # Create your views here.
 class LoginCadastroView(APIView):
@@ -18,3 +19,23 @@ class LoginCadastroView(APIView):
         }
 
         return JsonResponse(response, status=200 if status else 400)
+
+class ChamadosView(APIView):
+
+    def get(self, request):
+
+        status, lista_chamados, descricao = services.chamados.Chamado().get_chamados(is_tamplate=False)
+
+        response = {
+            'lista_chamados': lista_chamados,
+        }
+
+        return JsonResponse(response, status=200)
+
+    def patch(self, request, chamado_id):
+
+        status_novo = request.data.get("status")
+
+        status, descricao = services.chamados.Chamado().alterar_status(chamado_id, status_novo)
+
+        return JsonResponse({}, status=200 if status else 400)

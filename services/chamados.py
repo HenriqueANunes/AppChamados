@@ -5,9 +5,12 @@ class Chamado:
     def __init__(self, user_criacao = None):
         self.user_criacao = user_criacao
 
-    def get_chamados(self):
+    def get_chamados(self, is_tamplate=True):
 
-        lista_chamados = core.models.Chamado.objects.all()
+        if is_tamplate:
+            lista_chamados = core.models.Chamado.objects.all()
+        else:
+            lista_chamados = list(core.models.Chamado.objects.values())
 
         return True, lista_chamados, ''
 
@@ -33,3 +36,12 @@ class Chamado:
         chamado.save()
 
         return True, chamado.id, ''
+
+    def alterar_status(self, chamado_id:int, status:str):
+
+        if not core.models.Chamado.objects.filter(id=chamado_id).exists():
+            return False, 'Chamado não encontrado'
+
+        core.models.Chamado.objects.filter(id=chamado_id).update(status=status)
+
+        return True, ''
