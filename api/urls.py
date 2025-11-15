@@ -7,5 +7,8 @@ urlpatterns = [
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
-    path("login/cadastro", api.views.LoginCadastroView.as_view(), name="login_cadastro"),
+    path("login/cadastro/", api.views.LoginCadastroView.as_view(), name="login_cadastro"),
+
+    path("chamados/", api.views.ChamadosView.as_view(), name="chamados"),
+    path("chamados/<int:chamado_id>/", api.views.ChamadosView.as_view(), name="chamados"),
 ]
