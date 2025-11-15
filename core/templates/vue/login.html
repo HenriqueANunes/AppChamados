@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f2f4f7;
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .card {
+            width: 350px;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 93%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #4a76ee;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 118, 238, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #4a76ee;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #3a62c8;
+        }
+
+        .error {
+            margin-top: 10px;
+            color: #d9534f;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-link {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            color: #4a76ee;
+            text-decoration: none;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div class="card">
+        <h2>Entrar</h2>
+
+        <div class="input-group">
+            <label>
+                <input type="text" v-model="email" name="email" placeholder="Email" required>
+            </label>
+        </div>
+
+
+        <div class="input-group">
+            <label>
+                <input type="password" v-model="password" name="password" placeholder="Senha" required>
+            </label>
+        </div>
+
+        <button @click="login">Entrar</button>
+
+        <div class="error" v-if="error">
+            {{ error }}
+        </div>
+
+        <div class="register-link">
+            Não tem conta?
+            <a href="/vue/cadastro">Criar conta</a>
+        </div>
+    </div>
+</div>
+
+<script>
+const { createApp } = Vue;
+
+createApp({
+    data() {
+        return {
+            email: "",
+            password: "",
+            error: ""
+        };
+    },
+    methods: {
+        async login() {
+            this.error = "";
+
+            try {
+                const response = await fetch("/api/token/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: this.email,
+                        password: this.password
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    this.error = data.detail || "Erro ao fazer login.";
+                    return;
+                }
+
+                localStorage.setItem("access", data.access);
+                localStorage.setItem("refresh", data.refresh);
+
+                window.location.href = "home";
+            } catch (e) {
+                this.error = "Erro de conexão com o servidor.";
+            }
+        }
+    }
+}).mount("#app");
+</script>
+
+</body>
+</html>

@@ -10,4 +10,8 @@ urlpatterns = [
     path("home/chamado", core.views.ChamadoCadastroView.as_view(), name="home_chamado"),
     path("home/chamado/<int:chamado_id>", core.views.ChamadoCadastroView.as_view(), name="home_chamado"),
 
+    path('vue/login', core.views.VueLoginView.as_view(), name='vue_login'),
+    path('vue/cadastro', core.views.VueCadastroView.as_view(), name='vue_cadatro'),
+    path('vue/home', core.views.VueHomeView.as_view(), name='vue_app'),
+
 ]

@@ -2,6 +2,7 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.views.generic import TemplateView
 
 import services.user
 import services.chamados
@@ -74,3 +75,12 @@ class ChamadoCadastroView(View):
         messages.error(request, erro)
         return redirect("home")
 
+
+class VueLoginView(TemplateView):
+    template_name = "vue/login.html"
+
+class VueHomeView(TemplateView):
+    template_name = "vue/home.html"
+
+class VueCadastroView(TemplateView):
+    template_name = "vue/cadastro.html"
