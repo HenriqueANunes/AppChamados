@@ -27,7 +27,17 @@
 
 <div id="app">
 
-    <h1 class="text-center mb-4">Lista de Chamados</h1>
+    <!-- Título centralizado + logout à direita -->
+    <div class="d-flex justify-content-between align-items-center mb-4 table-container position-relative">
+
+        <h2 class="m-0 position-absolute start-50 translate-middle-x">
+            Chamados
+        </h2>
+
+        <button class="btn btn-outline-danger ms-auto" @click="logout">
+            Sair
+        </button>
+    </div>
 
     <div class="d-flex justify-content-end align-items-center gap-2 mb-3 table-container">
         <select class="form-select w-auto" v-model="filtroStatus">
@@ -59,7 +69,6 @@
                     <td>[[ traduzPrioridade(c.prioridade) ]]</td>
                     <td>[[ c.setor ]]</td>
 
-                    <!-- Agora o status pode ser alterado -->
                     <td>
                         <select class="form-select form-select-sm w-auto"
                                 v-model="c.status"
@@ -103,6 +112,12 @@ createApp({
     },
 
     methods: {
+        logout() {
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            window.location.href = "/vue/login";
+        },
+
         traduzPrioridade(p) {
             return {
                 1: "Baixa",
