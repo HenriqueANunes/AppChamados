@@ -133,18 +133,6 @@
                         </label>
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Status</label>
-                        <label>
-                            <select class="form-select" name="status" required>
-                                <option value="ABERTO">Aberto</option>
-                                <option value="ATENDIMENTO">Em Atendimento</option>
-                                <option value="RESOLVIDO">Resolvido</option>
-                                <option value="CANCELADO">Cancelado</option>
-                            </select>
-                        </label>
-                    </div>
-
                 </div>
 
                 <div class="modal-footer">
@@ -177,8 +165,6 @@
         form.reset();
         form.action = "{% url 'home_chamado' %}";
 
-        document.querySelector("select[name='status']").disabled = false;
-
         modalBootstrap.show();
     });
 
@@ -190,9 +176,6 @@
             document.querySelector("textarea[name='descricao']").value = btn.dataset.descricao;
             document.querySelector("select[name='prioridade']").value = btn.dataset.prioridade;
             document.querySelector("input[name='setor']").value = btn.dataset.setor;
-            document.querySelector("select[name='status']").value = btn.dataset.status;
-
-            document.querySelector("select[name='status']").disabled = true;
 
             document.getElementById("modalTitulo").textContent = "Editar Chamado";
 

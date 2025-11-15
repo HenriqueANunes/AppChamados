@@ -67,7 +67,6 @@ class ChamadoCadastroView(View):
             descricao = request.POST.get("descricao"),
             prioridade = request.POST.get("prioridade"),
             setor = request.POST.get("setor"),
-            status = request.POST.get("status"),
         )
 
         if status:
