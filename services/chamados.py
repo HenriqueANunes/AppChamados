@@ -14,7 +14,7 @@ class Chamado:
 
         return True, lista_chamados, ''
 
-    def salvar_chamado(self, titulo:str, prioridade:int, status:str, chamado_id:int = None, descricao:str = None,
+    def salvar_chamado(self, titulo:str, prioridade:int, chamado_id:int = None, descricao:str = None,
                           setor:str = None):
 
         if chamado_id:
@@ -28,7 +28,7 @@ class Chamado:
 
         chamado.titulo = titulo
         chamado.prioridade = prioridade
-        chamado.status = status
+        chamado.status = 'ABERTO'
         chamado.descricao = descricao
         chamado.setor = setor
         chamado.user_criacao = self.user_criacao
