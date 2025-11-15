@@ -58,7 +58,8 @@ class ChamadoHomeView(View):
         return render(request, "home.html", {'lista_chamados': lista_chamados})
 
 class ChamadoCadastroView(View):
-    def post(self, request, chamado_id):
+
+    def post(self, request, chamado_id=None):
 
         status, chamado_id, erro = services.chamados.Chamado(request.user).salvar_chamado(
             chamado_id=chamado_id,
