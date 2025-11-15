@@ -1,10 +1,11 @@
 from django.urls import path
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 import core.views
 
 urlpatterns = [
     path("login/", core.views.LoginView.as_view(), name="login"),
     path("login/cadastro/", core.views.UserCadastroView.as_view(), name="user_cadastro"),
+    path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
 
     path("home", core.views.ChamadoHomeView.as_view(), name="home"),
     path("home/chamado", core.views.ChamadoCadastroView.as_view(), name="home_chamado"),

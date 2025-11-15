@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
@@ -49,7 +50,7 @@ class UserCadastroView(View):
 
         return render(request, "user_cadastro.html", {"error": descricao})
 
-class ChamadoHomeView(View):
+class ChamadoHomeView(LoginRequiredMixin, View):
 
     def get(self, request):
 
@@ -57,7 +58,7 @@ class ChamadoHomeView(View):
 
         return render(request, "home.html", {'lista_chamados': lista_chamados})
 
-class ChamadoCadastroView(View):
+class ChamadoCadastroView(LoginRequiredMixin, View):
 
     def post(self, request, chamado_id=None):
 
@@ -76,11 +77,11 @@ class ChamadoCadastroView(View):
         return redirect("home")
 
 
-class VueLoginView(TemplateView):
+class VueLoginView(LoginRequiredMixin, TemplateView):
     template_name = "vue/login.html"
 
-class VueHomeView(TemplateView):
+class VueHomeView(LoginRequiredMixin, TemplateView):
     template_name = "vue/home.html"
 
-class VueCadastroView(TemplateView):
+class VueCadastroView(LoginRequiredMixin, TemplateView):
     template_name = "vue/cadastro.html"
