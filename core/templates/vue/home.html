@@ -20,6 +20,10 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+        th.sortable {
+            cursor: pointer;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -63,7 +67,13 @@
                 <tr>
                     <th>Título</th>
                     <th>Descrição</th>
-                    <th>Prioridade</th>
+
+                    <!-- Prioridade clicável -->
+                    <th class="sortable" @click="ordenarPrioridade">
+                        Prioridade
+                        <span>[[ ordenarAsc ? '▲' : '▼' ]]</span>
+                    </th>
+
                     <th>Setor</th>
                     <th>Status</th>
                 </tr>
@@ -108,18 +118,34 @@ createApp({
         return {
             chamados: [],
             filtroStatus: "",
-            loading: false
+            loading: false,
+            ordenarAsc: true
         };
     },
 
     computed: {
         chamadosFiltrados() {
-            if (!this.filtroStatus) return this.chamados;
-            return this.chamados.filter(c => c.status === this.filtroStatus);
+            let lista = [...this.chamados];
+
+            if (this.filtroStatus)
+                lista = lista.filter(c => c.status === this.filtroStatus);
+
+            // Ordenação apenas por prioridade
+            lista.sort((a, b) => {
+                return this.ordenarAsc
+                    ? a.prioridade - b.prioridade
+                    : b.prioridade - a.prioridade;
+            });
+
+            return lista;
         }
     },
 
     methods: {
+        ordenarPrioridade() {
+            this.ordenarAsc = !this.ordenarAsc;
+        },
+
         logout() {
             localStorage.removeItem("access");
             localStorage.removeItem("refresh");

@@ -37,6 +37,11 @@
             border-color: #4a76ee;
             box-shadow: 0 0 0 3px rgba(74, 118, 238, 0.25);
         }
+        .col-prioridade {
+            width: 110px;       /* ajustável */
+            white-space: nowrap; /* impede quebrar linha */
+            text-align: center; /* opcional, fica mais bonito */
+        }
     </style>
 </head>
 <body>
@@ -87,7 +92,9 @@
             <tr>
                 <th>Título</th>
                 <th>Descrição</th>
-                <th>Prioridade</th>
+                <th id="thPrioridade" class="col-prioridade" style="cursor: pointer;">
+                    Prioridade ▲▼
+                </th>
                 <th>Setor</th>
                 <th>Status</th>
                 <th>Ações</th>
@@ -99,7 +106,7 @@
             <tr>
                 <td>{{ chamado.titulo }}</td>
                 <td>{{ chamado.descricao }}</td>
-                <td>{{ chamado.get_prioridade_display }}</td>
+                <td class="col-prioridade" data-value="{{ chamado.prioridade }}">{{ chamado.get_prioridade_display }}</td>
                 <td>{{ chamado.setor }}</td>
                 <td>{{ chamado.get_status_display }}</td>
                 <td>
@@ -230,6 +237,33 @@
         this.disabled = true;
         this.textContent = "Atualizando...";
         window.location.reload();
+    });
+
+    let ordemPrioridade = "asc"; // estado inicial
+
+    document.getElementById("thPrioridade").addEventListener("click", function () {
+        const tbody = document.querySelector("tbody");
+        const linhas = Array.from(tbody.querySelectorAll("tr"));
+        const coluna = 2; // índice da coluna de prioridade
+
+        linhas.sort((a, b) => {
+            const pa = parseInt(a.children[coluna].dataset.value);
+            const pb = parseInt(b.children[coluna].dataset.value);
+
+            return ordemPrioridade === "asc" ? pa - pb : pb - pa;
+        });
+
+        // alterna para o próximo clique
+        ordemPrioridade = ordemPrioridade === "asc" ? "desc" : "asc";
+
+        // re-renderiza as linhas
+        tbody.innerHTML = "";
+        linhas.forEach(tr => tbody.appendChild(tr));
+
+        // atualiza seta visual
+        this.textContent = ordemPrioridade === "asc"
+            ? "Prioridade ▲"
+            : "Prioridade ▼";
     });
 
 </script>
