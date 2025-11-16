@@ -28,7 +28,7 @@ class Chamado:
 
         chamado.titulo = titulo
         chamado.prioridade = prioridade
-        chamado.status = 'ABERTO'
+        chamado.status = chamado.status or 'ABERTO'
         chamado.descricao = descricao
         chamado.setor = setor
         chamado.user_criacao = self.user_criacao
