@@ -19,6 +19,24 @@
         .btn-editar {
             font-size: 13px;
         }
+
+        .custom-modal {
+            border-radius: 14px;
+            padding: 10px 5px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .custom-input {
+            border-radius: 10px;
+            padding: 10px 14px;
+            border: 1px solid #d0d0d0;
+            transition: all 0.15s ease;
+        }
+
+        .custom-input:focus {
+            border-color: #4a76ee;
+            box-shadow: 0 0 0 3px rgba(74, 118, 238, 0.25);
+        }
     </style>
 </head>
 <body>
@@ -103,11 +121,11 @@
 
 <!-- MODAL BOOTSTRAP -->
 <div class="modal fade" id="modalChamado" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="modal-dialog modal-lg"> <!-- Modal mais largo -->
+        <div class="modal-content custom-modal">
 
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalTitulo">Novo Chamado</h5>
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold" id="modalTitulo">Novo Chamado</h5>
                 <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
 
@@ -117,49 +135,42 @@
                 <div class="modal-body">
 
                     <div class="mb-3">
-                        <label class="form-label">Título</label>
-                        <label>
-                            <input class="form-control" name="titulo" required type="text">
-                        </label>
+                        <label class="form-label fw-semibold">Título</label>
+                        <input class="form-control custom-input" name="titulo" required type="text">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Descrição</label>
-                        <label>
-                            <textarea class="form-control" name="descricao" required></textarea>
-                        </label>
+                        <label class="form-label fw-semibold">Descrição</label>
+                        <textarea class="form-control custom-input" name="descricao" rows="3" required></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Prioridade</label>
-                        <label>
-                            <select class="form-select" name="prioridade" required>
-                                <option value="1">Baixa</option>
-                                <option value="2">Média</option>
-                                <option value="3">Alta</option>
-                                <option value="4">Urgente</option>
-                            </select>
-                        </label>
+                        <label class="form-label fw-semibold">Prioridade</label>
+                        <select class="form-select custom-input" name="prioridade" required>
+                            <option value="1">Baixa</option>
+                            <option value="2">Média</option>
+                            <option value="3">Alta</option>
+                            <option value="4">Urgente</option>
+                        </select>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">Setor</label>
-                        <label>
-                            <input class="form-control" name="setor" required type="text">
-                        </label>
+                        <label class="form-label fw-semibold">Setor</label>
+                        <input class="form-control custom-input" name="setor" required type="text">
                     </div>
 
                 </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+                <div class="modal-footer border-0 pt-0">
+                    <button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
                         Cancelar
                     </button>
-                    <button class="btn btn-success" type="submit">
+                    <button class="btn btn-success px-4" type="submit">
                         Salvar
                     </button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>
