@@ -13,6 +13,6 @@ urlpatterns = [
 
     path('vue/login/', core.views.VueLoginView.as_view(), name='vue_login'),
     path('vue/cadastro/', core.views.VueCadastroView.as_view(), name='vue_cadatro'),
-    path('vue/home/', core.views.VueHomeView.as_view(), name='vue_app'),
+    path('vue/home/', core.views.VueHomeView.as_view(), name='vue_home'),
 
 ]
