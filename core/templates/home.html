@@ -61,7 +61,7 @@
 
 <div class="d-flex justify-content-end align-items-center gap-2 mb-3 table-container">
 
-    <label for="filtroStatus"></label><select class="form-select w-auto" id="filtroStatus">
+    <select class="form-select w-auto" id="filtroStatus">
         <option value="">Todos os Status</option>
         <option value="ABERTO">Aberto</option>
         <option value="ATENDIMENTO">Em Atendimento</option>
@@ -69,10 +69,15 @@
         <option value="CANCELADO">Cancelado</option>
     </select>
 
+    <button class="btn btn-outline-primary" id="btnAtualizar">
+        Atualizar
+    </button>
+
     <button class="btn btn-primary" id="btnNovoChamado">
         + Novo Chamado
     </button>
 </div>
+
 
 <div class="table-container bg-white p-3 rounded shadow-sm">
 
@@ -220,6 +225,13 @@
             tr.style.display = (!filtro || status === filtro) ? "" : "none";
         });
     });
+
+    document.getElementById("btnAtualizar").addEventListener("click", function() {
+        this.disabled = true;
+        this.textContent = "Atualizando...";
+        window.location.reload();
+    });
+
 </script>
 
 </body>
