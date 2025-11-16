@@ -77,11 +77,11 @@ class ChamadoCadastroView(LoginRequiredMixin, View):
         return redirect("home")
 
 
-class VueLoginView(LoginRequiredMixin, TemplateView):
+class VueLoginView(TemplateView):
     template_name = "vue/login.html"
 
-class VueHomeView(LoginRequiredMixin, TemplateView):
+class VueHomeView(TemplateView):
     template_name = "vue/home.html"
 
-class VueCadastroView(LoginRequiredMixin, TemplateView):
+class VueCadastroView(TemplateView):
     template_name = "vue/cadastro.html"
