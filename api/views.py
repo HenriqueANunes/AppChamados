@@ -1,10 +1,15 @@
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 import services.user
 import services.chamados
+import services.token
 
 # Create your views here.
+class MyTokenView(TokenObtainPairView):
+    serializer_class = services.token.MyTokenSerializer
+
 class LoginCadastroView(APIView):
 
     def post(self, request):
