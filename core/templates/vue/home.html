@@ -48,9 +48,11 @@
             <option value="CANCELADO">Cancelado</option>
         </select>
 
-        <button class="btn btn-outline-primary" @click="carregarChamados">
-            Atualizar lista
+        <button class="btn btn-outline-primary" @click="carregarChamados" :disabled="loading">
+            <span v-if="!loading">Atualizar lista</span>
+            <span v-else>Atualizando...</span>
         </button>
+
     </div>
 
 
@@ -105,7 +107,8 @@ createApp({
     data() {
         return {
             chamados: [],
-            filtroStatus: ""
+            filtroStatus: "",
+            loading: false
         };
     },
 
@@ -151,21 +154,26 @@ createApp({
 
         async carregarChamados() {
             const token = localStorage.getItem("access");
+            this.loading = true;
 
-            const response = await fetch("/api/chamados/", {
-                headers: {
-                    Authorization: "Bearer " + token
+            try {
+                const response = await fetch("/api/chamados/", {
+                    headers: { Authorization: "Bearer " + token }
+                });
+
+                if (response.status === 401) {
+                    window.location.href = "/vue/login";
+                    return;
                 }
-            });
 
-            if (response.status === 401) {
-                window.location.href = "/vue/login";
-                return;
+                const data = await response.json();
+                this.chamados = data.lista_chamados;
+
+            } finally {
+                this.loading = false;
             }
-
-            const data = await response.json();
-            this.chamados = data.lista_chamados;
         }
+
     },
 
     mounted() {
